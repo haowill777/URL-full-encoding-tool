@@ -1,32 +1,41 @@
-def main():
-	print("进入程序")
-	result = ''
-	string = input("请输入字符串:")
-	request = input("加密输入1，解密输入2：")
-	if request != '1' and request != '2':
-		request = input("输入有误加密输入1，解密输入2")
-	if request == '1':
-		result = encode(string)	#进入加密函数
-		print(string + ":加密结果是：" +result)
-	if request == '2':
-		result = decode(string) #进入解密函数
-		print(string + ':解密结果:' + result)
-	
-def encode(string): #加密
-	encode_string = ""
-	for char in string:
-		encode_char = hex(ord(char)).replace("0x","%")	#加密核心代码
-		encode_string += encode_char
-	return encode_string
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-def decode(string): #解密
-	decode_string = ""
-	string_arr = string.split("%")	#输入数据变成列表
-	string_arr.pop(0)	#删除第一个空元素
-	for char in string_arr:
-		decode_char = chr(eval("0x" + char))	#解密核心代码
-		decode_string += decode_char
-	return decode_string
+"""
+2022由haowill开发[2022 haowill developers (http://www.haowill.top)]
+加解密工具,如何使用请阅读readme.md(This program is Encryption and decryption tool. How to use it?Pelase see readme.md)
+不好意程序需要python3(Sorry,program require Python3)
+"""
 
-main()
+import sys
+from lib.core.UrlAllCode import UrlAllCode 	#URL全编码(URL All code)
+
+if sys.version_info.major < (2):	#检查python版本(Check version of python)
+    sys.stdout.write("抱歉,需要python3(Sorry, dirsearch requires Python 3.7 or higher)\n")
+    sys.exit(1)
+
+if __name__ == "__main__":
+	try:
+		# opt = getopt.getopt(sys.argv[1:],"hu:")
+		# print(opt)
+		print("进入程序(Inter program)")		# main函数
+		result = ''
+		string = input("请输入字符串:")
+		request = input("加密输入1，解密输入2：")
+		if request != '1' and request != '2':
+			request = input("输入有误加密输入1，解密输入2")
+		if request == '1':
+			UrlAll =  UrlAllCode()
+			result = UrlAll.encode(string)	#进入加密函数
+			print(string + "=>加密结果是：" + result)
+		if request == '2':
+			UrlAll =  UrlAllCode()
+			result = UrlAll.decode(string) #进入解密函数
+			print(string + '=>解密结果:' + result)
+	except:
+		print("主要程序异常中断(Aborts the main program)")
+		exit(1)
+else:
+	exit()
+
 	
